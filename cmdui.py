@@ -49,7 +49,7 @@ import pdb
 import gradio as gr
 from subprocess import Popen
 import signal
-from config import python_exec,infer_device,is_half,exp_root,webui_port_main,webui_port_infer_tts,webui_port_uvr5,webui_port_subfix,is_share
+from config import python_exec,infer_device,is_half,exp_root,webui_port_main,webui_port_infer_tts,webui_port_uvr5,webui_port_subfix,is_share,saveName
 from tools.i18n.i18n import I18nAuto
 i18n = I18nAuto()
 from scipy.io import wavfile
@@ -722,21 +722,23 @@ def close1abc():
     return "已终止所有一键三连进程", {"__type__": "update", "visible": True}, {"__type__": "update", "visible": False}
 
 sound_path='/content/audio'
-name='Faruzan'
+name=saveName
 list(open_slice(inp=sound_path,opt_root='output/slicer_opt',threshold=-34,min_length=4000,min_interval=300,hop_size=10,max_sil_kept=500,_max=0.9,alpha=0.25,n_parts=4))
 list(open_asr(asr_inp_dir='/content/GPT-SoVITS/output/slicer_opt',asr_opt_dir='output/asr_opt',asr_model='达摩 ASR (中文)',asr_model_size='large',asr_lang='zh'))
 path___=''
 name2___=''
 ffff= open('/content/GPT-SoVITS/output/asr_opt/slicer_opt.list','r',encoding='utf8')
-dddd=f.readlines()
-dddd=dddd.split('|')
-if 25<len(dddd[-1]) and len(dddd[-1])<40:
-    with open() as fw:
-        with open(dddd[0],'rb') as fr:
-            fw.write(fr.read())
+ddddd=f.readlines()
+for dddd in ddddd:
+    dddd=dddd.split('|')
+    if 20<len(dddd[-1]) and len(dddd[-1])<40:
+        with open(f'/content/GPT-SoVITS/sound_weights/{name}_{name2___}.wav','wb') as fw:
+            with open(dddd[0],'rb') as fr:
+                fw.write(fr.read())
+        break
 ffff.close()
 
 list(open1abc(inp_text='/content/GPT-SoVITS/output/asr_opt/slicer_opt.list',inp_wav_dir='/content/GPT-SoVITS/output/slicer_opt',exp_name=name,gpu_numbers1a='0-0',gpu_numbers1Ba='0-0',gpu_numbers1c='0-0',bert_pretrained_dir='GPT_SoVITS/pretrained_models/chinese-roberta-wwm-ext-large',ssl_pretrained_dir='GPT_SoVITS/pretrained_models/chinese-hubert-base',pretrained_s2G_path='GPT_SoVITS/pretrained_models/s2G488k.pth'))
-list(open1Ba(batch_size=7,total_epoch=8,exp_name=name,text_low_lr_rate=0.4,if_save_latest=True,if_save_every_weights=True,save_every_epoch=4,gpu_numbers1Ba=0,pretrained_s2G='GPT_SoVITS/pretrained_models/s2G488k.pth',pretrained_s2D='GPT_SoVITS/pretrained_models/s2D488k.pth'))
-list(open1Bb(batch_size=7,total_epoch=15,exp_name=name,if_dpo=False,if_save_latest=True,if_save_every_weights=True,save_every_epoch=5,gpu_numbers=0,pretrained_s1='GPT_SoVITS/pretrained_models/s1bert25hz-2kh-longer-epoch=68e-step=50232.ckpt'))
+list(open1Ba(batch_size=7,total_epoch=8,exp_name=name,text_low_lr_rate=0.4,if_save_latest=True,if_save_every_weights=True,save_every_epoch=8,gpu_numbers1Ba=0,pretrained_s2G='GPT_SoVITS/pretrained_models/s2G488k.pth',pretrained_s2D='GPT_SoVITS/pretrained_models/s2D488k.pth'))
+list(open1Bb(batch_size=7,total_epoch=15,exp_name=name,if_dpo=False,if_save_latest=True,if_save_every_weights=True,save_every_epoch=15,gpu_numbers=0,pretrained_s1='GPT_SoVITS/pretrained_models/s1bert25hz-2kh-longer-epoch=68e-step=50232.ckpt'))
 print('ok////////////////////')
