@@ -349,8 +349,9 @@ def merge_short_text_in_array(texts, threshold):
             result[len(result) - 1] += text
     return result
 
-def get_tts_wav(ref_wav_path=None, prompt_text, prompt_language, text, text_language, how_to_cut=i18n("不切"), top_k=20, top_p=0.6, temperature=0.6, ref_free = False):
+def get_tts_wav(ref_wav_path, prompt_text, prompt_language, text, text_language, how_to_cut=i18n("不切"), top_k=20, top_p=0.6, temperature=0.6, ref_free = False):
     if prompt_text is None or len(prompt_text) == 0:
+        sound_path='/content/GPT-SoVITS/Faruzan_快乐和放松是每个人都需要的东西.管他什么孩子大人的.wav'
         prompt_text=sound_path.split('_')[-1][:-4]
         ref_wav_path=sound_path
 
@@ -574,16 +575,18 @@ def custom_sort_key(s):
 
 
 def change_choices():
-    SoVITS_names, GPT_names = get_weights_names()
-    return {"choices": sorted(SoVITS_names, key=custom_sort_key), "__type__": "update"}, {"choices": sorted(GPT_names, key=custom_sort_key), "__type__": "update"}
+    SoVITS_names, GPT_names ,sound_names= get_weights_names()
+    return {"choices": sorted(SoVITS_names, key=custom_sort_key), "__type__": "update"}, {"choices": sorted(GPT_names, key=custom_sort_key), "__type__": "update"}, {"choices": sorted(sound_names, key=custom_sort_key), "__type__": "update"}
 
 
 pretrained_sovits_name = "GPT_SoVITS/pretrained_models/s2G488k.pth"
 pretrained_gpt_name = "GPT_SoVITS/pretrained_models/s1bert25hz-2kh-longer-epoch=68e-step=50232.ckpt"
 SoVITS_weight_root = "SoVITS_weights"
 GPT_weight_root = "GPT_weights"
+sound_weight_root = 'sound_weight'
 os.makedirs(SoVITS_weight_root, exist_ok=True)
 os.makedirs(GPT_weight_root, exist_ok=True)
+os.makedirs(sound_weight_root, exist_ok=True)
 
 
 def get_weights_names():
@@ -593,10 +596,13 @@ def get_weights_names():
     GPT_names = [pretrained_gpt_name]
     for name in os.listdir(GPT_weight_root):
         if name.endswith(".ckpt"): GPT_names.append("%s/%s" % (GPT_weight_root, name))
-    return SoVITS_names, GPT_names
+    sound_names = []
+    for name in os.listdir(sound_weight_root):
+        if name.endswith(".wav"): sound_names.append("%s/%s" % (sound_weight_root, name))
+    return SoVITS_names, GPT_names ,sound_names
 
 
-SoVITS_names, GPT_names = get_weights_names()
+SoVITS_names, GPT_names ,sound_names= get_weights_names()
 
 with gr.Blocks(title="GPT-SoVITS WebUI") as app:
     gr.Markdown(
