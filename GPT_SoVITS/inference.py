@@ -43,7 +43,7 @@ if os.path.exists("./souweight.txt"):
 else:
     sound_path = os.environ.get(
         "sound_path", "GPT_SoVITS/pretrained_models/s1bert25hz-2kh-longer-epoch=68e-step=50232.ckpt")
-
+sound_path=''
 # gpt_path = os.environ.get(
 #     "gpt_path", "pretrained_models/s1bert25hz-2kh-longer-epoch=68e-step=50232.ckpt"
 # )
@@ -181,7 +181,8 @@ def change_sovits_weights(sovits_path):
 change_sovits_weights(sovits_path)
 
 def change_sound_weights(sound_path):
-
+    global sound_path
+    sound_path=sound_path
     with open("./souweight.txt", "w", encoding="utf-8") as f: f.write(sound_path)
 
 
@@ -350,8 +351,9 @@ def merge_short_text_in_array(texts, threshold):
     return result
 
 def get_tts_wav(ref_wav_path, prompt_text, prompt_language, text, text_language, how_to_cut=i18n("不切"), top_k=20, top_p=0.6, temperature=0.6, ref_free = False):
+    global sound_path
     if prompt_text is None or len(prompt_text) == 0:
-        sound_path='/content/GPT-SoVITS/Faruzan_快乐和放松是每个人都需要的东西.管他什么孩子大人的.wav'
+        #sound_path='/content/GPT-SoVITS/Faruzan_快乐和放松是每个人都需要的东西.管他什么孩子大人的.wav'
         prompt_text=sound_path.split('_')[-1][:-4]
         ref_wav_path=sound_path
 
@@ -583,7 +585,7 @@ pretrained_sovits_name = "GPT_SoVITS/pretrained_models/s2G488k.pth"
 pretrained_gpt_name = "GPT_SoVITS/pretrained_models/s1bert25hz-2kh-longer-epoch=68e-step=50232.ckpt"
 SoVITS_weight_root = "SoVITS_weights"
 GPT_weight_root = "GPT_weights"
-sound_weight_root = 'sound_weight'
+sound_weight_root = 'sound_weights'
 os.makedirs(SoVITS_weight_root, exist_ok=True)
 os.makedirs(GPT_weight_root, exist_ok=True)
 os.makedirs(sound_weight_root, exist_ok=True)
