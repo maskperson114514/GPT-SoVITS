@@ -180,9 +180,9 @@ def change_sovits_weights(sovits_path):
 
 change_sovits_weights(sovits_path)
 
-def change_sound_weights(sound_path):
+def change_sound_weights(sound_path_):
     global sound_path
-    sound_path=sound_path
+    sound_path=sound_path_
     with open("./souweight.txt", "w", encoding="utf-8") as f: f.write(sound_path)
 
 
