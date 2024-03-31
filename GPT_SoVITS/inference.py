@@ -33,6 +33,17 @@ if os.path.exists("./sweight.txt"):
         sovits_path = os.environ.get("sovits_path", sweight_data)
 else:
     sovits_path = os.environ.get("sovits_path", "GPT_SoVITS/pretrained_models/s2G488k.pth")
+
+
+if os.path.exists("./souweight.txt"):
+    with open("./souweight.txt", 'r', encoding="utf-8") as file:
+        souweight_data = file.read()
+        sound_path = os.environ.get(
+            "sound_path", souweight_data)
+else:
+    sound_path = os.environ.get(
+        "sound_path", "GPT_SoVITS/pretrained_models/s1bert25hz-2kh-longer-epoch=68e-step=50232.ckpt")
+
 # gpt_path = os.environ.get(
 #     "gpt_path", "pretrained_models/s1bert25hz-2kh-longer-epoch=68e-step=50232.ckpt"
 # )
@@ -168,6 +179,10 @@ def change_sovits_weights(sovits_path):
 
 
 change_sovits_weights(sovits_path)
+
+def change_sound_weights(sound_path):
+
+    with open("./souweight.txt", "w", encoding="utf-8") as f: f.write(sound_path)
 
 
 def change_gpt_weights(gpt_path):
@@ -334,9 +349,13 @@ def merge_short_text_in_array(texts, threshold):
             result[len(result) - 1] += text
     return result
 
-def get_tts_wav(ref_wav_path, prompt_text, prompt_language, text, text_language, how_to_cut=i18n("不切"), top_k=20, top_p=0.6, temperature=0.6, ref_free = False):
+def get_tts_wav(ref_wav_path=None, prompt_text, prompt_language, text, text_language, how_to_cut=i18n("不切"), top_k=20, top_p=0.6, temperature=0.6, ref_free = False):
     if prompt_text is None or len(prompt_text) == 0:
-        ref_free = True
+        prompt_text=sound_path.split('_')[-1][:-4]
+        ref_wav_path=sound_path
+
+
+
     fff=inspect.currentframe()
     aaa,_,_,vvv=inspect.getargvalues(fff)
     ccc=inspect.getframeinfo(fff)
@@ -588,9 +607,11 @@ with gr.Blocks(title="GPT-SoVITS WebUI") as app:
         with gr.Row():
             GPT_dropdown = gr.Dropdown(label=i18n("GPT模型列表"), choices=sorted(GPT_names, key=custom_sort_key), value=gpt_path, interactive=True)
             SoVITS_dropdown = gr.Dropdown(label=i18n("SoVITS模型列表"), choices=sorted(SoVITS_names, key=custom_sort_key), value=sovits_path, interactive=True)
+            sound_dropdown = gr.Dropdown(label=i18n("音频样本列表"), choices=sorted(sound_names, key=custom_sort_key), value=sound_path, interactive=True)
             refresh_button = gr.Button(i18n("刷新模型路径"), variant="primary")
-            refresh_button.click(fn=change_choices, inputs=[], outputs=[SoVITS_dropdown, GPT_dropdown])
+            refresh_button.click(fn=change_choices, inputs=[], outputs=[SoVITS_dropdown, GPT_dropdown,sound_dropdown])
             SoVITS_dropdown.change(change_sovits_weights, [SoVITS_dropdown], [])
+            sound_dropdown.change(change_sound_weights, [sound_dropdown], [])
             GPT_dropdown.change(change_gpt_weights, [GPT_dropdown], [])
         gr.Markdown(value=i18n("*请上传并填写参考信息"))
         with gr.Row():
