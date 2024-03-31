@@ -1,0 +1,24 @@
+Running on public URL: https://433e8e45a1eaf9bc63.gradio.live
+#############file:/content/GPT-SoVITS/GPT_SoVITS/inference_webui.py;func:change_gpt_weights(gpt_path=GPT_weights/Faruzan-e15.ckpt)
+Number of parameter: 77.49M
+#############file:/content/GPT-SoVITS/GPT_SoVITS/inference_webui.py;func:change_sovits_weights(sovits_path=SoVITS_weights/Faruzan_e4_s104.pth)
+/usr/local/lib/python3.10/dist-packages/torch/nn/utils/weight_norm.py:28: UserWarning: torch.nn.utils.weight_norm is deprecated in favor of torch.nn.utils.parametrizations.weight_norm.
+  warnings.warn("torch.nn.utils.weight_norm is deprecated in favor of torch.nn.utils.parametrizations.weight_norm.")
+<All keys matched successfully>
+
+
+
+#############file:/content/GPT-SoVITS/GPT_SoVITS/inference_webui.py;func:get_tts_wav(ref_wav_path=/tmp/gradio/7cee75a4cd510c232f4fef27dc2cbd7899798043/Faruzan_快乐和放松是每个人都需要的东西管他什么孩子大人的1-0-100.wav,prompt_text=快乐和放松是每个人都需要的东西，管他什么孩子大人的。,prompt_language=Chinese,text=请填写需要合成的目标文本和语种模式,text_language=Chinese,how_to_cut=Slice once every 4 sentences,top_k=5,top_p=1,temperature=1,ref_free=False)
+实际输入的参考文本: 快乐和放松是每个人都需要的东西，管他什么孩子大人的。
+#############file:/content/GPT-SoVITS/GPT_SoVITS/inference_webui.py;func:get_first(text=请填写需要合成的目标文本和语种模式)
+
+
+#############file:/content/GPT-SoVITS/GPT_SoVITS/inference_webui.py;func:get_tts_wav(ref_wav_path=/tmp/gradio/7cee75a4cd510c232f4fef27dc2cbd7899798043/Faruzan_快乐和放松是每个人都需要的东西管他什么孩子大人的1-0-100.wav,prompt_text=快乐和放松是每个人都需要的东西，管他什么孩子大人的。,prompt_language=Chinese,text=个擦我hi韦编三绝阿宝请填写需要合成的目标文本和语,text_language=Chinese,how_to_cut=Slice once every 4 sentences,top_k=5,top_p=1,temperature=1,ref_free=False)
+实际输入的参考文本: 快乐和放松是每个人都需要的东西，管他什么孩子大人的。
+#############file:/content/GPT-SoVITS/GPT_SoVITS/inference_webui.py;func:get_first(text=个擦我hi韦编三绝阿宝请填写需要合成的目标文本和语)
+
+changeModel
+
+text2Sound
+
+
