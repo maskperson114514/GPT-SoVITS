@@ -722,10 +722,12 @@ def close1abc():
     return "已终止所有一键三连进程", {"__type__": "update", "visible": True}, {"__type__": "update", "visible": False}
 
 sound_path='/content/audio'
-name=saveName
+name=''
+with open('name.txt','r',encoding='utf8') as f:
+    name=f.read()
 list(open_slice(inp=sound_path,opt_root='output/slicer_opt',threshold=-34,min_length=4000,min_interval=300,hop_size=10,max_sil_kept=500,_max=0.9,alpha=0.25,n_parts=4))
 list(open_asr(asr_inp_dir='/content/GPT-SoVITS/output/slicer_opt',asr_opt_dir='output/asr_opt',asr_model='达摩 ASR (中文)',asr_model_size='large',asr_lang='zh'))
-path___=''
+
 name2___=''
 ffff= open('/content/GPT-SoVITS/output/asr_opt/slicer_opt.list','r',encoding='utf8')
 ddddd=f.readlines()
