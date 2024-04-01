@@ -730,7 +730,7 @@ list(open_asr(asr_inp_dir='/content/GPT-SoVITS/output/slicer_opt',asr_opt_dir='o
 
 name2___=''
 ffff= open('/content/GPT-SoVITS/output/asr_opt/slicer_opt.list','r',encoding='utf8')
-ddddd=f.readlines()
+ddddd=ffff.readlines()
 for dddd in ddddd:
     dddd=dddd.split('|')
     if 20<len(dddd[-1]) and len(dddd[-1])<40:
