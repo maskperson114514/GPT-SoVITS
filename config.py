@@ -9,7 +9,7 @@ is_half_str = os.environ.get("is_half", "True")
 is_half = True if is_half_str.lower() == 'true' else False
 is_share_str = os.environ.get("is_share","True")
 is_share= True if is_share_str.lower() == 'true' else False
-saveName = os.environ.get("name","de")
+
 
 
 cnhubert_path = "GPT_SoVITS/pretrained_models/chinese-hubert-base"
