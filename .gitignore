@@ -18,3 +18,7 @@ TEMP
 weight.json
 ffmpeg*
 ffprobe*
+.gitpod.yml
+test.py
+test2.py
+.gitignore
